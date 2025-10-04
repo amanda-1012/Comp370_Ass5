@@ -16,18 +16,12 @@ def main():
     
     print("Sample raw Created Date values:")
     print(df["Created Date"].head(20)) 
-    print("Number of NaT values:", df["Created Date"].isna().sum())
-    print("Earliest date:", df["Created Date"].min())
-    print("Latest date:", df["Created Date"].max())
 
     start_date = pd.to_datetime(args.start_date, format="%m/%d/%Y")
     end_date   = pd.to_datetime(args.end_date, format="%m/%d/%Y") + pd.Timedelta(days=1)
 
     dfrange = df[(df["Created Date"] >= start_date) & (df["Created Date"] < end_date)]
 
-    print("Start:", start_date, " End:", end_date)
-    print("Sample dates:", df["Created Date"].head())
-    print("Rows after filter:", len(dfrange))
 
     counts = dfrange.groupby(["Complaint Type", "Borough"]).size().reset_index(name='Count')
     
