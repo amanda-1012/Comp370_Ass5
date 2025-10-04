@@ -1,0 +1,1 @@
+ After analyzing both of the bar plot, the biggest complaint for both JAN-FEB and JUN-JULY is heating. In both cases, the borough Bronx was the most affected by it. Overall the graph are the same. 
