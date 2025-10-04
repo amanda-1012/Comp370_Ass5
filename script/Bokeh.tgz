@@ -1,0 +1,31 @@
+import pandas as pd
+from bokeh.plotting import figure, show, output_notebook
+from bokeh.models import ColumnDataSource
+
+output_notebook()
+
+df = pd.read_csv("../data/complaints_byborough.csv")
+
+complaint_type_counts = df.groupby("Complaint Type")["Count"].sum()
+max_complaint = complaint_type_counts.idxmax()
+print("Most frequent complaint type:", max_complaint)
+
+
+df_top = df[df["Complaint Type"] == max_complaint]
+
+
+source = ColumnDataSource(df_top)
+
+p = figure(x_range=df_top["Borough"], height=400, width=600,
+           title=f"{max_complaint} complaints (Jan–Feb 2024)",
+           toolbar_location=None, tools="")
+
+p.vbar(x="Borough", top="Count", width=0.5, source=source)
+
+p.xgrid.grid_line_color = None
+p.y_range.start = 0
+p.xaxis.axis_label = "Borough"
+p.yaxis.axis_label = "Number of Complaints"
+
+
+show(p)
